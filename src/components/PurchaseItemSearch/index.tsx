@@ -4,14 +4,18 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import useFetch from "use-http";
+import Skeleton from "react-loading-skeleton";
 
-import { GlobalContext, IGlobalContext } from "../../context/GlobalState";
+import {
+  PurchaseRouteContext,
+  IPurchaseRouteContext,
+} from "context/PurchaseRouteState";
 
 import "./index.scss";
 
 const PurchaseItemSearch: React.FunctionComponent<any> = () => {
-  const { setCarsLoading, setDisplayCars } = useContext<IGlobalContext>(
-    GlobalContext
+  const { setDisplayCars } = useContext<IPurchaseRouteContext>(
+    PurchaseRouteContext
   );
 
   const [colorFilters, setColorFilters] = useState<any[]>([]);
@@ -19,8 +23,8 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
   const [selectedColor, setSelectedColor] = useState<any>("");
   const [selectedManufacturer, setSelectedManufacturer] = useState<any>("");
 
-  // const { get, loading, error, response } = useFetch(
-  const { get, response } = useFetch(
+  const { get, loading, response } = useFetch(
+    // const { get, response } = useFetch(
     "https://auto1-mock-server.herokuapp.com/api"
   );
 
@@ -60,15 +64,12 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
   };
 
   const handleFilterClick = () => {
-    setCarsLoading && setCarsLoading(true);
-
     // setting manufacturer and color, only to local stage. As passing them to global would result in Filter button going useless.
     // Also resetting page number to '1'.
     setDisplayCars &&
       setDisplayCars({ selectedManufacturer, selectedColor, page: 1 });
-
-    setCarsLoading && setCarsLoading(false);
   };
+
   return (
     <Card className="m-3">
       <Card.Body>
@@ -82,16 +83,22 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
           <Dropdown.Item eventKey="All car colors" value="">
             All car colors
           </Dropdown.Item>
-          {colorFilters.map((color) => (
-            <Dropdown.Item
-              key={color}
-              eventKey={color}
-              value={color}
-              data-testid={color}
-            >
-              {color}
-            </Dropdown.Item>
-          ))}
+          {loading ? (
+            <Skeleton />
+          ) : (
+            <>
+              {colorFilters.map((color) => (
+                <Dropdown.Item
+                  key={color}
+                  eventKey={color}
+                  value={color}
+                  data-testid={color}
+                >
+                  {color}
+                </Dropdown.Item>
+              ))}
+            </>
+          )}
         </DropdownButton>
 
         <DropdownButton
@@ -104,16 +111,22 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
           <Dropdown.Item eventKey="All manufacturers" value="">
             All manufacturers
           </Dropdown.Item>
-          {manufacturerFilters.map((manufacturer) => (
-            <Dropdown.Item
-              key={manufacturer.name}
-              eventKey={manufacturer.name}
-              value={manufacturer.name}
-              data-testid={manufacturer.name}
-            >
-              {manufacturer.name}
-            </Dropdown.Item>
-          ))}
+          {loading ? (
+            <Skeleton />
+          ) : (
+            <>
+              {manufacturerFilters.map((manufacturer) => (
+                <Dropdown.Item
+                  key={manufacturer.name}
+                  eventKey={manufacturer.name}
+                  value={manufacturer.name}
+                  data-testid={manufacturer.name}
+                >
+                  {manufacturer.name}
+                </Dropdown.Item>
+              ))}
+            </>
+          )}
         </DropdownButton>
 
         <div className="d-flex mt-3 justify-content-end">

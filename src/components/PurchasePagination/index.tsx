@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-import { GlobalContext } from '../../context/GlobalState';
+import { PurchaseRouteContext } from 'context/PurchaseRouteState';
 
 const Purchase: React.FunctionComponent<any> = () => {
   const [state, setState] = useState<any>({
@@ -13,7 +13,7 @@ const Purchase: React.FunctionComponent<any> = () => {
   const {
     page, totalPageCount, setPageNo, setDisplayCars,
   } = useContext(
-    GlobalContext,
+    PurchaseRouteContext,
   );
 
   const handleSelectPagination = (evt: React.SyntheticEvent) => {

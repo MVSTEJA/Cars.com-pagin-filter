@@ -1,7 +1,7 @@
 import React from "react";
 import { renderWithRouter, screen, act } from "test-utils";
 
-import App from "../App";
+import App from "App";
 
 test("landing on a bad page", () => {
   act(() => {

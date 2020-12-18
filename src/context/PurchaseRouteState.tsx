@@ -1,7 +1,11 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import useFetch from "use-http";
+import Toaster from "components/common/Toaster";
 
-import AppReducer, { IReducerAction, EOnChangeHandler } from "./AppReducer";
+import PurchaseReducer, {
+  IReducerAction,
+  EOnChangeHandler,
+} from "./PurchaseReducer";
 
 export type ICarDetails = {
   stockNumber: number;
@@ -16,7 +20,7 @@ export type ICarDetails = {
   color: string;
 };
 
-export interface IGlobalContext {
+export interface IPurchaseRouteContext {
   isCarsLoading?: boolean;
   cars?: Array<ICarDetails>;
   selectedManufacturer?: string;
@@ -29,14 +33,13 @@ export interface IGlobalContext {
   setPageNo?: (pageNo: string) => void;
 }
 
-const initialState: IGlobalContext = {
+const initialState: IPurchaseRouteContext = {
   cars: [],
   selectedManufacturer: "",
   selectedColor: "",
   page: "1",
   totalPageCount: 0,
   totalCarsCount: 0,
-  isCarsLoading: false,
   setCarsLoading: () => {
     return null;
   },
@@ -47,44 +50,55 @@ const initialState: IGlobalContext = {
     return null;
   },
 };
-export const GlobalContext: React.Context<IGlobalContext> = createContext(
+export const PurchaseRouteContext: React.Context<IPurchaseRouteContext> = createContext(
   initialState
 );
 
-export const GlobalProvider: React.FunctionComponent<any> = ({ children }) => {
-  const { get, response } = useFetch(
+
+export const PurchaseRouteProvider: React.FunctionComponent<any> = ({
+  children,
+}) => {
+  const [state, dispatch] = useReducer<
+    React.Reducer<IPurchaseRouteContext, IReducerAction>
+  >(PurchaseReducer, initialState);
+
+
+  const { get, loading, response, error } = useFetch(
     "https://auto1-mock-server.herokuapp.com/api"
   );
-  const [state, dispatch] = useReducer<
-    React.Reducer<IGlobalContext, IReducerAction>
-  >(AppReducer, initialState);
 
-  const setCarsLoading = (isCarsLoading: boolean) => {
-    const loadingAction: IReducerAction = {
+  const [showToaster, setShowErrorToaster] = useState(false);
+
+  const setCarsLoading = (isCarsLoading = false) => {
+    dispatch({
       type: EOnChangeHandler.IS_CARS_LOADING,
       isCarsLoading,
-    };
-    dispatch({ ...loadingAction });
+    });
   };
 
-  /**
-   *
-   *
-   * @param {*} {
-   *     selectedManufacturer = state.selectedManufacturer,
-   *     selectedColor = state.selectedColor,
-   *     page = state.page,
-   *   }
-   */
+  useEffect(() => {
+    setCarsLoading(loading);
+  }, [loading]);
+
+  useEffect(() => {
+    if (error) {
+      setShowErrorToaster(true);
+      dispatch({ type: EOnChangeHandler.CARS_DISPLAY_LIST, cars: [] });
+    }
+  }, [error]);
+
+  
   const setDisplayCars = async ({
     selectedManufacturer = state.selectedManufacturer,
     selectedColor = state.selectedColor,
     page = state.page,
   }) => {
     try {
-      const { cars, totalPageCount, totalCarsCount } = await get(
+      await get(
         `/cars?manufacturer=${selectedManufacturer}&color=${selectedColor}&sort=asc&page=${page}`
       );
+
+      const { cars, totalPageCount, totalCarsCount } = response.data;
 
       const displayListObject: IReducerAction = {
         type: EOnChangeHandler.CARS_DISPLAY_LIST,
@@ -96,9 +110,13 @@ export const GlobalProvider: React.FunctionComponent<any> = ({ children }) => {
       };
       if (response.ok) {
         dispatch({ ...displayListObject });
+      } else {
+        setCarsLoading(false);
+        setShowErrorToaster(true);
       }
     } catch (error) {
-      console.error("error--->", error);
+      setCarsLoading(false);
+      setShowErrorToaster(true);
     }
   };
 
@@ -110,7 +128,7 @@ export const GlobalProvider: React.FunctionComponent<any> = ({ children }) => {
     dispatch({ ...pageNoObject });
   };
   return (
-    <GlobalContext.Provider
+    <PurchaseRouteContext.Provider
       value={{
         cars: state.cars,
         isCarsLoading: state.isCarsLoading,
@@ -122,7 +140,13 @@ export const GlobalProvider: React.FunctionComponent<any> = ({ children }) => {
         totalCarsCount: state.totalCarsCount,
       }}
     >
+      <Toaster
+        show={showToaster}
+        setShow={setShowErrorToaster}
+        hasError={true}
+        message={error && error.message}
+      />
       {children}
-    </GlobalContext.Provider>
+    </PurchaseRouteContext.Provider>
   );
 };

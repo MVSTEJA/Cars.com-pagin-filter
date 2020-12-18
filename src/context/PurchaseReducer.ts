@@ -1,15 +1,15 @@
-import { IGlobalContext } from './GlobalState';
+import { IPurchaseRouteContext } from './PurchaseRouteState';
 
 export enum EOnChangeHandler {
   IS_CARS_LOADING = 'IS_CARS_LOADING',
   CARS_DISPLAY_LIST = 'CARS_DISPLAY_LIST',
   SET_PAGE_NUMBER = 'SET_PAGE_NUMBER',
 }
-export interface IReducerAction extends IGlobalContext {
+export interface IReducerAction extends IPurchaseRouteContext {
   type: EOnChangeHandler;
 }
 
-const AppReducer = (state: IGlobalContext, action: IReducerAction) => {
+const PurchaseReducer = (state: IPurchaseRouteContext, action: IReducerAction) => {
   switch (action.type) {
     case EOnChangeHandler.IS_CARS_LOADING:
       return {
@@ -35,4 +35,4 @@ const AppReducer = (state: IGlobalContext, action: IReducerAction) => {
   }
 };
 
-export default AppReducer;
+export default PurchaseReducer;

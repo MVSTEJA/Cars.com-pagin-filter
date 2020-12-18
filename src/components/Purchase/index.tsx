@@ -3,14 +3,14 @@ import React, { useContext } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import PurchaseResults from '../PurchaseResults';
-import PurchaseItemSearch from '../PurchaseItemSearch';
-import PurchasePagination from '../PurchasePagination';
+import PurchaseResults from 'components/PurchaseResults';
+import PurchaseItemSearch from 'components/PurchaseItemSearch';
+import PurchasePagination from 'components/PurchasePagination';
 
-import { GlobalContext, IGlobalContext } from '../../context/GlobalState';
+import { PurchaseRouteContext, IPurchaseRouteContext } from 'context/PurchaseRouteState';
 
 const Purchase: React.FunctionComponent<any> = () => {
-  const { totalCarsCount } = useContext<IGlobalContext>(GlobalContext);
+  const { totalCarsCount } = useContext<IPurchaseRouteContext>(PurchaseRouteContext);
   return (
     <Row>
       <Col sm={4}>

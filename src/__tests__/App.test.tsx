@@ -7,7 +7,7 @@ import {
   fireEvent,
 } from "test-utils";
 
-import App from "../App";
+import App from "App";
 
 test("full app rendering/navigating", async () => {
   act(() => {
@@ -49,8 +49,8 @@ test("select white color and Fiat model and click filter, And result list should
   );
   fireEvent.click(screen.getByText(/All manufacturers/i));
 
-  await waitFor(() => expect(screen.getByTestId(/Fiat/i)).toBeInTheDocument());
-  fireEvent.click(screen.getByTestId(/Fiat/i));
+  await waitFor(() => expect(screen.getByTestId('Fiat')).toBeInTheDocument());
+  fireEvent.click(screen.getByTestId('Fiat'));
 
   act(() => {
     fireEvent.click(screen.getByText(/Filter/i));

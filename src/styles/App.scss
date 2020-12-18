@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -20,7 +21,7 @@ $theme-colors: (
 );
 
 /* import bootstrap to set changes */
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 @import "variables";
 
 .header {
@@ -45,7 +46,7 @@ $theme-colors: (
 }
 
 .btn-link {
-  color: #EA7F28; 
+  color: #D37324; 
 }
 
 .btn-link:hover, 
@@ -60,4 +61,8 @@ $theme-colors: (
 .page-item.active .page-link {
   background-color: #EA7F28;
   border-color: #EA7F28 ;
+}
+
+.hide {
+  display: none;
 }
