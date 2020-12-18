@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { LinkContainer } from 'react-router-bootstrap';
+
+import AppRouter from './router';
+
+import { GlobalProvider } from './context/GlobalState';
+
+import './styles/App.scss';
+
+const App: React.FunctionComponent<any> = () => (
+  <BrowserRouter>
+    <div className="my-3">
+      <h1 className="header">Cars.com</h1>
+      <Navbar className="border p-4">
+        <Nav className="ml-auto">
+          <LinkContainer to="/" exact>
+            <Button variant="info">Purchase</Button>
+          </LinkContainer>
+          <LinkContainer to="/my-orders">
+            <Button variant="info">My orders</Button>
+          </LinkContainer>
+          <LinkContainer to="/sell">
+            <Button variant="info">Sell</Button>
+          </LinkContainer>
+        </Nav>
+      </Navbar>
     </div>
-  );
-}
+    <GlobalProvider>
+      <AppRouter />
+    </GlobalProvider>
+
+  </BrowserRouter>
+);
 
 export default App;

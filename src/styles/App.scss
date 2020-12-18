@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* make the customizations */
+$theme-colors: (
+  "info": white,
+  "danger": teal,
+  "lightOrange": #EA7F28,
+);
+
+/* import bootstrap to set changes */
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "variables";
+
+.header {
+  text-align: center;
+}
+
+.custom-btn-toolbar {
+  display: inline !important;
+}
+
+.custom-btn-toolbar > .btn {
+  margin-right: 1rem;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #EA7F28; 
+}
+
+.dropdown-toggle.btn {
+  border: 1px solid lightgray;
+}
+
+.btn-link {
+  color: #EA7F28; 
+}
+
+.btn-link:hover, 
+.btn-link:active {
+  color: #D37324; 
+}
+
+.page-item .page-link {
+  color: #EA7F28;
+}
+
+.page-item.active .page-link {
+  background-color: #EA7F28;
+  border-color: #EA7F28 ;
+}
