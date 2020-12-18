@@ -60,7 +60,7 @@ export const RowItem: React.FunctionComponent<any> = ({
   isCarsLoading: boolean;
 }) => (
   <section>
-    {isCarsLoading && (
+    {isCarsLoading ? (
       <Card className="d-flex flex-row mb-3">
         <Skeleton height={100} width={100} className="m-3" />
         <Card.Body>
@@ -73,44 +73,49 @@ export const RowItem: React.FunctionComponent<any> = ({
           </Card.Text>
         </Card.Body>
       </Card>
-    )}
-    {cars.length > 0 ? (
-      cars.map((car: ICarDetails) => (
-        <Card className="d-flex flex-row mb-3" key={car.stockNumber}>
-          <Card.Img variant="top" src={car.pictureUrl} className="m-3 border" />
-          <Card.Body>
-            <Card.Title data-testid="row-item">
-              {car.manufacturerName} {car.modelName}
-            </Card.Title>
-            <Card.Text>
-              Stock #: {car.stockNumber} - {car.mileage.number}{" "}
-              {car.mileage.unit} - {car.fuelType} - {car.color}
-            </Card.Text>
-            {removeFromFavorites ? (
-              <Button
-                variant="link"
-                className="p-0"
-                onClick={() => removeFromFavorites(car)}
-              >
-                Remove from favorites
-              </Button>
-            ) : (
-              <LinkContainer to="/" exact>
+    ):
+    (
+      <>
+      {cars.length > 0 ? (
+        cars.map((car: ICarDetails) => (
+          <Card className="d-flex flex-row mb-3" key={car.stockNumber}>
+            <Card.Img variant="top" src={car.pictureUrl} className="m-3 border" />
+            <Card.Body>
+              <Card.Title data-testid="row-item">
+                {car.manufacturerName} {car.modelName}
+              </Card.Title>
+              <Card.Text>
+                Stock #: {car.stockNumber} - {car.mileage.number}{" "}
+                {car.mileage.unit} - {car.fuelType} - {car.color}
+              </Card.Text>
+              {removeFromFavorites ? (
                 <Button
                   variant="link"
                   className="p-0"
-                  onClick={() => handleViewDetails(car)}
+                  onClick={() => removeFromFavorites(car)}
                 >
-                  View details
+                  Remove from favorites
                 </Button>
-              </LinkContainer>
-            )}
-          </Card.Body>
-        </Card>
-      ))
-    ) : (
-      <h3 className="text-center my-5">No cars to show!</h3>
-    )}
+              ) : (
+                <LinkContainer to="/" exact>
+                  <Button
+                    variant="link"
+                    className="p-0"
+                    onClick={() => handleViewDetails(car)}
+                  >
+                    View details
+                  </Button>
+                </LinkContainer>
+              )}
+            </Card.Body>
+          </Card>
+        ))
+      ) : (
+        <h3 className="text-center my-5">No cars to show.</h3>
+      )}
+      </>
+    )
+  }
   </section>
 );
 
