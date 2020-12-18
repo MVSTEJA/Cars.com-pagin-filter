@@ -16,7 +16,7 @@ const PurchaseResults: React.FunctionComponent<any> = () => {
     setModalShow(true);
     setCarDetailsJSON(carDetails);
   };
-  console.log({ isCarsLoading, cars });
+  console.log({ isCarsLoading });
   return (
     <>
       <section>

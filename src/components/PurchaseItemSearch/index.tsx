@@ -1,38 +1,39 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Card from 'react-bootstrap/Card';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Button from 'react-bootstrap/Button';
-import useFetch from 'use-http';
+import React, { useState, useEffect, useContext } from "react";
+import Card from "react-bootstrap/Card";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
+import useFetch from "use-http";
 
-import { GlobalContext, IGlobalContext } from '../../context/GlobalState';
+import { GlobalContext, IGlobalContext } from "../../context/GlobalState";
 
-import './index.scss';
+import "./index.scss";
 
 const PurchaseItemSearch: React.FunctionComponent<any> = () => {
   const { setCarsLoading, setDisplayCars } = useContext<IGlobalContext>(
-    GlobalContext,
+    GlobalContext
   );
 
   const [colorFilters, setColorFilters] = useState<any[]>([]);
   const [manufacturerFilters, setManufacturerFilters] = useState<any[]>([]);
-  const [selectedColor, setSelectedColor] = useState<any>('');
-  const [selectedManufacturer, setSelectedManufacturer] = useState<any>('');
+  const [selectedColor, setSelectedColor] = useState<any>("");
+  const [selectedManufacturer, setSelectedManufacturer] = useState<any>("");
 
   // const { get, loading, error, response } = useFetch(
   const { get, response } = useFetch(
-    'https://auto1-mock-server.herokuapp.com/api',
+    "https://auto1-mock-server.herokuapp.com/api"
   );
 
   async function initializeColors() {
-    const { colors } = await get('/colors');
+    const { colors } = await get("/colors");
     if (response.ok) {
       setColorFilters(colors);
     }
   }
 
   async function initializeManufacturers() {
-    const { manufacturers } = await get('/manufacturers');
+    const { manufacturers } = await get("/manufacturers");
+
     if (response.ok) {
       setManufacturerFilters(manufacturers);
     }
@@ -44,12 +45,18 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
     void handleFilterClick();
   }, []);
 
-  const colorDropdownSelect = (eventKey: string | null, e: React.SyntheticEvent<unknown, Event>) => {
-    setSelectedColor((e.target as Element).getAttribute('value'));
+  const colorDropdownSelect = (
+    eventKey: string | null,
+    e: React.SyntheticEvent<unknown, Event>
+  ) => {
+    setSelectedColor((e.target as Element).getAttribute("value"));
   };
 
-  const manufacturerDropdownSelect = (eventKey: string | null, e: React.SyntheticEvent<unknown, Event>) => {
-    setSelectedManufacturer((e.target as Element).getAttribute('value'));
+  const manufacturerDropdownSelect = (
+    eventKey: string | null,
+    e: React.SyntheticEvent<unknown, Event>
+  ) => {
+    setSelectedManufacturer((e.target as Element).getAttribute("value"));
   };
 
   const handleFilterClick = () => {
@@ -57,7 +64,8 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
 
     // setting manufacturer and color, only to local stage. As passing them to global would result in Filter button going useless.
     // Also resetting page number to '1'.
-    setDisplayCars && setDisplayCars({ selectedManufacturer, selectedColor, page: 1 });
+    setDisplayCars &&
+      setDisplayCars({ selectedManufacturer, selectedColor, page: 1 });
 
     setCarsLoading && setCarsLoading(false);
   };
@@ -66,15 +74,21 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
       <Card.Body>
         <DropdownButton
           id="dropdown-basic-button"
-          title={selectedColor || 'All car colors'}
+          title={selectedColor || "All car colors"}
           variant="info"
           onSelect={colorDropdownSelect}
+          menuAlign="right"
         >
           <Dropdown.Item eventKey="All car colors" value="">
             All car colors
           </Dropdown.Item>
           {colorFilters.map((color) => (
-            <Dropdown.Item key={color} eventKey={color} value={color}>
+            <Dropdown.Item
+              key={color}
+              eventKey={color}
+              value={color}
+              data-testid={color}
+            >
               {color}
             </Dropdown.Item>
           ))}
@@ -82,7 +96,7 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
 
         <DropdownButton
           id="dropdown-basic-button"
-          title={selectedManufacturer || 'All manufacturers'}
+          title={selectedManufacturer || "All manufacturers"}
           variant="info"
           className="mt-3"
           onSelect={manufacturerDropdownSelect}
@@ -95,6 +109,7 @@ const PurchaseItemSearch: React.FunctionComponent<any> = () => {
               key={manufacturer.name}
               eventKey={manufacturer.name}
               value={manufacturer.name}
+              data-testid={manufacturer.name}
             >
               {manufacturer.name}
             </Dropdown.Item>

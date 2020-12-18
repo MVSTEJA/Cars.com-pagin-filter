@@ -20,7 +20,7 @@ const NotFound: React.FunctionComponent<any> = () => (
     <div className="d-flex flex-column align-items-center m-t-200">
       <h1 className="mb-4 font-weight-bold">404 - Not Found</h1>
       <h5 className="mb-3">
-        {'Sorry, the page you are looking for doesn&apos;t exist.'}
+        Sorry, the page you are looking for doesn&apos;t exist.
       </h5>
       <h5>
         You can always go back to the{' '}

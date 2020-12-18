@@ -1449,14 +1449,6 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
   integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
 
-"@react-mock/state@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@react-mock/state/-/state-0.1.8.tgz#5c579570964e0254ee27a5aad72e09b0c0ea40e8"
-  integrity sha512-oX16w3FKhfF2+nQE+C4frrfVddzwhF4YEYxF8frXzboEDZsxCRpFuQC0za3T59ZxI4ygBarBqDrhYzipGsD9TQ==
-  dependencies:
-    "@babel/runtime" "^7.1.2"
-    lodash "^4.17.11"
-
 "@restart/context@^2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@restart/context/-/context-2.1.4.tgz#a99d87c299a34c28bd85bb489cb07bfd23149c02"

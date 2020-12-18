@@ -1,5 +1,10 @@
 @import "bootstrap";
 
 .dropdown .dropdown-toggle.btn {
+    @extend .text-left;
+}
+
+.dropdown .dropdown-toggle.btn,
+.dropdown .dropdown-menu {
     @extend .col-12;
 }

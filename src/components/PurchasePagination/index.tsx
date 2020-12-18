@@ -27,12 +27,6 @@ const Purchase: React.FunctionComponent<any> = () => {
         Next: (page: number): number => page + 1,
         Last: (): number => totalPageCount!,
       };
-      console.log(
-        'calculatePageNumber>>>',
-        textContent,
-        calculatePageNumber[textContent!](pageNumberType),
-      );
-
       const toSetPageNo = calculatePageNumber[textContent!](pageNumberType);
 
       if (Number(toSetPageNo) === 1) {

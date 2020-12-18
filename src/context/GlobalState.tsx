@@ -85,7 +85,6 @@ export const GlobalProvider: React.FunctionComponent<any> = ({ children }) => {
       const { cars, totalPageCount, totalCarsCount } = await get(
         `/cars?manufacturer=${selectedManufacturer}&color=${selectedColor}&sort=asc&page=${page}`
       );
-      console.log("cars>>>>>", cars);
 
       const displayListObject: IReducerAction = {
         type: EOnChangeHandler.CARS_DISPLAY_LIST,

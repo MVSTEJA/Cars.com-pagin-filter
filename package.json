@@ -51,7 +51,6 @@
     "node": "14.15.1"
   },
   "devDependencies": {
-    "@react-mock/state": "^0.1.8",
     "@types/jest": "^26.0.19",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
