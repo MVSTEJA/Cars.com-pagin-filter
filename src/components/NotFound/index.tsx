@@ -11,13 +11,10 @@ const NotFound: React.FunctionComponent<any> = () => (
     a:hover {
         color: #D37324;
     }
-
-    .m-t-200 {
-        margin-top: 200px;
-    }
     `}
     </style>
-    <div className="d-flex flex-column align-items-center m-t-200">
+    <div className="d-flex flex-column align-items-center NotFound">
+      <img className="mb-3" alt="cars.com" src="https://auto1-js-task-api--mufasa71.repl.co/images/logo.png" height="30"/>
       <h1 className="mb-4 font-weight-bold">404 - Not Found</h1>
       <h5 className="mb-3">
         Sorry, the page you are looking for doesn&apos;t exist.

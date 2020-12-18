@@ -17,6 +17,7 @@ const App: React.FunctionComponent<any> = () => (
   <BrowserRouter>
     <div className="mb-3">
       <Navbar className="border p-4">
+        <img alt="cars.com" src="https://auto1-js-task-api--mufasa71.repl.co/images/logo.png" height="50"/>
         <Nav className="ml-auto">
           <LinkContainer to="/" exact>
             <Button variant="info">Purchase</Button>
@@ -37,7 +38,7 @@ const App: React.FunctionComponent<any> = () => (
     </div>
     <AppRouter />
     {/* Footer Section */}
-    <Container fluid className="border py-4">
+    <Container fluid className="border py-4 footer">
       <Row>
         <Col className="text-center">Cars.com 2018</Col>
       </Row>

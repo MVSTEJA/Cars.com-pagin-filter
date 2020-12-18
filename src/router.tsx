@@ -7,12 +7,12 @@ import MyFavorites from "./components/MyFavorites";
 
 import { PurchaseRouteProvider } from "./context/PurchaseRouteState";
 
-const MyOrders = () => <span>My orders</span>;
+const MyOrders = () => <h1 className="text-center mb-5">My Orders</h1>;
 
-const Sell = () => <span data-testid="sell-page">Sell</span>;
+const Sell = () => <h1 className="text-center mb-5">Sell</h1>;
 
 const Approuter: React.FunctionComponent<any> = () => (
-  <div className="p-3 px-5">
+  <div className="p-3 px-5 pb-100">
     <Switch>
       <Route path="/" exact>
         <PurchaseRouteProvider>

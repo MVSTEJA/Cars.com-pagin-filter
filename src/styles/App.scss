@@ -13,6 +13,11 @@ code {
     monospace;
 }
 
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
 /* make the customizations */
 $theme-colors: (
   "info": white,
@@ -65,4 +70,20 @@ $theme-colors: (
 
 .hide {
   display: none;
+}
+
+.footer {
+  position: absolute;  
+  bottom: 0;
+}
+
+.NotFound {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pb-100 {
+  padding-bottom: 100px !important;
 }

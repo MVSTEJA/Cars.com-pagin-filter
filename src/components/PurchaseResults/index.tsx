@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { LinkContainer } from "react-router-bootstrap";
 import Button from "react-bootstrap/Button";
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from "react-loading-skeleton";
 
 import {
   PurchaseRouteContext,
@@ -14,9 +14,11 @@ import "./index.scss";
 import CarDetails from "components/modals/CarDetails";
 
 const PurchaseResults: React.FunctionComponent<any> = () => {
-  const { isCarsLoading, cars } = useContext<IPurchaseRouteContext>(
-    PurchaseRouteContext
-  );
+  const {
+    isCarsLoading,
+    cars,
+    totalCarsCount,
+  } = useContext<IPurchaseRouteContext>(PurchaseRouteContext);
   const [modalShow, setModalShow] = useState<any>(false);
   const [carDetailsJSON, setCarDetailsJSON] = useState<Record<string, unknown>>(
     {}
@@ -26,11 +28,17 @@ const PurchaseResults: React.FunctionComponent<any> = () => {
     setModalShow(true);
     setCarDetailsJSON(carDetails);
   };
-  
-  // console.log({isCarsLoading})
   return (
     <>
-      <RowItem isCarsLoading={isCarsLoading} cars={isCarsLoading ? []:cars} handleViewDetails={handleViewDetails} />
+      <h2 className="pb-1 font-weight-bold">Available cars</h2>
+      {!isCarsLoading && cars!.length > 0 && (
+        <h4 className="pb-4"> Showing 10 of {totalCarsCount} results</h4>
+      )}
+      <RowItem
+        isCarsLoading={isCarsLoading}
+        cars={isCarsLoading ? [] : cars}
+        handleViewDetails={handleViewDetails}
+      />
       <CarDetails
         modalShow={modalShow}
         setModalShow={setModalShow}
@@ -44,7 +52,7 @@ export const RowItem: React.FunctionComponent<any> = ({
   cars,
   handleViewDetails,
   removeFromFavorites,
-  isCarsLoading
+  isCarsLoading,
 }: {
   cars: [];
   handleViewDetails: (car: ICarDetails) => void;
@@ -52,22 +60,21 @@ export const RowItem: React.FunctionComponent<any> = ({
   isCarsLoading: boolean;
 }) => (
   <section>
-    {isCarsLoading && 
-    <Card className="d-flex flex-row mb-3">
-    <Skeleton height={100} width={100} className="m-3"/>
-    <Card.Body>
-      <Card.Title data-testid="row-item">
-        <Skeleton />
-        <Skeleton />
-      </Card.Title>
-      <Card.Text>
-        <Skeleton width={300}/>
-      </Card.Text>
-    </Card.Body>
-  </Card>
-   }
-    {cars &&
-      cars.length > 0 &&
+    {isCarsLoading && (
+      <Card className="d-flex flex-row mb-3">
+        <Skeleton height={100} width={100} className="m-3" />
+        <Card.Body>
+          <Card.Title data-testid="row-item">
+            <Skeleton />
+            <Skeleton />
+          </Card.Title>
+          <Card.Text>
+            <Skeleton width={300} />
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    )}
+    {cars.length > 0 ? (
       cars.map((car: ICarDetails) => (
         <Card className="d-flex flex-row mb-3" key={car.stockNumber}>
           <Card.Img variant="top" src={car.pictureUrl} className="m-3 border" />
@@ -100,7 +107,10 @@ export const RowItem: React.FunctionComponent<any> = ({
             )}
           </Card.Body>
         </Card>
-      ))}
+      ))
+    ) : (
+      <h3 className="text-center my-5">No cars to show!</h3>
+    )}
   </section>
 );
 

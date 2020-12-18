@@ -23,6 +23,7 @@ const MyFavoritesComponent: React.FunctionComponent<any> = () => {
 
   return (
     <>
+    <h1 className="text-center mb-5">My Favorites</h1>
     <div data-testid="my-favorites-landing-page"></div>
     <RowItem cars={myFavorites} removeFromFavorites={removeFromFavorites} />
     </>

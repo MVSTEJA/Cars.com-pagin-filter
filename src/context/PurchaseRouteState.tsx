@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect, useState } from "react";
-import useFetch from "use-http";
+import useFetch, { CachePolicies } from "use-http";
 import Toaster from "components/common/Toaster";
 
 import PurchaseReducer, {
@@ -54,7 +54,6 @@ export const PurchaseRouteContext: React.Context<IPurchaseRouteContext> = create
   initialState
 );
 
-
 export const PurchaseRouteProvider: React.FunctionComponent<any> = ({
   children,
 }) => {
@@ -62,9 +61,11 @@ export const PurchaseRouteProvider: React.FunctionComponent<any> = ({
     React.Reducer<IPurchaseRouteContext, IReducerAction>
   >(PurchaseReducer, initialState);
 
-
   const { get, loading, response, error } = useFetch(
-    "https://auto1-mock-server.herokuapp.com/api"
+    "https://auto1-mock-server.herokuapp.com/api",
+    {
+      cachePolicy: CachePolicies.NETWORK_ONLY,
+    }
   );
 
   const [showToaster, setShowErrorToaster] = useState(false);
@@ -87,7 +88,6 @@ export const PurchaseRouteProvider: React.FunctionComponent<any> = ({
     }
   }, [error]);
 
-  
   const setDisplayCars = async ({
     selectedManufacturer = state.selectedManufacturer,
     selectedColor = state.selectedColor,

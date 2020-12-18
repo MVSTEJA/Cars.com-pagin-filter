@@ -25,13 +25,13 @@ const Toaster: React.FC<any> = ({
         left: 20,
         bottom: 0,
         zIndex: 1,
+        right: 0
       }}
     >
       <div
         style={{
           position: "absolute",
           bottom: 20,
-          right: -90,
         }}
       >
         <Toast
