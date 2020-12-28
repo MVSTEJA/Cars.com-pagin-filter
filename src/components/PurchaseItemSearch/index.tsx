@@ -13,15 +13,19 @@ import {
 
 import "./index.scss";
 
-const PurchaseItemSearch: React.FunctionComponent<any> = () => {
+interface ImanufacturerFilters {
+  name: string;
+}
+
+const PurchaseItemSearch: React.FunctionComponent = () => {
   const { setDisplayCars } = useContext<IPurchaseRouteContext>(
     PurchaseRouteContext
   );
 
-  const [colorFilters, setColorFilters] = useState<any[]>([]);
-  const [manufacturerFilters, setManufacturerFilters] = useState<any[]>([]);
-  const [selectedColor, setSelectedColor] = useState<any>("");
-  const [selectedManufacturer, setSelectedManufacturer] = useState<any>("");
+  const [colorFilters, setColorFilters] = useState<string[]>([]);
+  const [manufacturerFilters, setManufacturerFilters] = useState<ImanufacturerFilters[]>([]);
+  const [selectedColor, setSelectedColor] = useState<string| null>("");
+  const [selectedManufacturer, setSelectedManufacturer] = useState<string| null>("");
 
   const { get, loading, response } = useFetch(
     // const { get, response } = useFetch(

@@ -7,7 +7,7 @@ import PurchaseResults from 'components/PurchaseResults';
 import PurchaseItemSearch from 'components/PurchaseItemSearch';
 import PurchasePagination from 'components/PurchasePagination';
 
-const Purchase: React.FunctionComponent<any> = () => {
+const Purchase: React.FunctionComponent = () => {
   return (
     <Row>
       <Col sm={4}>

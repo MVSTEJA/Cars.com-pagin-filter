@@ -13,7 +13,7 @@ import AppRouter from "./router";
 
 import "./styles/App.scss";
 
-const App: React.FunctionComponent<any> = () => (
+const App: React.FunctionComponent = () => (
   <BrowserRouter>
     <div className="mb-3">
       <Navbar className="border p-4">

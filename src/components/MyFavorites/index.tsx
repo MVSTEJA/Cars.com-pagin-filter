@@ -5,14 +5,15 @@ import { ICarDetails } from "context/PurchaseRouteState";
 
 export const notInlocalStorageDataCheck = (
   myFavorites: [],
-  carDetailsJSON: Record<string, any>
+  carDetailsJSON: ICarDetails
 ): never[] =>
   myFavorites.filter(
-    (storeObj: Record<string, any>) =>
+    (storeObj: ICarDetails) =>
       storeObj.stockNumber !== carDetailsJSON.stockNumber
   );
 
-const MyFavoritesComponent: React.FunctionComponent<any> = () => {
+
+const MyFavoritesComponent: React.FunctionComponent = () => {
   const [myFavorites, setMyFavorites] = useLocalStorage("myFavorites", []);
 
   const removeFromFavorites = (itemToRemove: ICarDetails) => {

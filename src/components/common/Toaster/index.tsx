@@ -3,16 +3,18 @@ import Toast from "react-bootstrap/Toast";
 
 import './index.scss'
 
-const Toaster: React.FC<any> = ({
-  show,
-  setShow,
-  hasError,
-  message
-}: {
+interface IToasterProps {
   show: boolean;
   setShow: (arg0: boolean) => void;
   hasError: boolean;
   message: string
+}
+
+const Toaster: React.FC<IToasterProps> = ({
+  show,
+  setShow,
+  hasError,
+  message
 }) => {
   return (
     <div

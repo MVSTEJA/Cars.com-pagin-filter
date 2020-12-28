@@ -2,26 +2,31 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
-
 import { useLocalStorage } from "hooks/UseLocalStorage";
+
+import {
+  ICarDetails,
+} from "context/PurchaseRouteState";
 
 export const inlocalStorageDataCheck = (
   myFavorites: [],
-  carDetailsJSON: Record<string, any>
+  carDetailsJSON: ICarDetails
 ): never[] =>
   myFavorites.filter(
-    (storeObj: Record<string, any>) =>
+    (storeObj: ICarDetails) =>
       storeObj.stockNumber === carDetailsJSON.stockNumber
   );
 
-const CarDetails: React.FunctionComponent<any> = ({
+interface IcarDetailsProps  {
+  modalShow: boolean;
+  setModalShow: (arg0: boolean) => void;
+  carDetailsJSON: ICarDetails;
+}
+
+const CarDetails: React.FunctionComponent<IcarDetailsProps> = ({
   modalShow,
   setModalShow,
   carDetailsJSON,
-}: {
-  modalShow: boolean;
-  setModalShow: (arg0: boolean) => void;
-  carDetailsJSON: Record<string, any>;
 }) => {
   const [myFavorites, setMyFavorites] = useLocalStorage("myFavorites", []);
   const [isInFavorites, setIsInFavorites] = useState(false);

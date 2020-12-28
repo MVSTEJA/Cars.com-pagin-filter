@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
 type ReturnType = [
-  any | undefined,
-  React.Dispatch<React.SetStateAction<any | undefined>>
+  any | undefined,// eslint-disable-line @typescript-eslint/no-explicit-any
+  React.Dispatch<React.SetStateAction<any | undefined>>,// eslint-disable-line @typescript-eslint/no-explicit-any
 ];
 
 export const useLocalStorage = (
   key: string,
-  defaultValue?: any
+  defaultValue?: any,// eslint-disable-line @typescript-eslint/no-explicit-any
 ): ReturnType => {
   const stored = localStorage.getItem(key);
   const initial = stored ? JSON.parse(stored) : defaultValue;

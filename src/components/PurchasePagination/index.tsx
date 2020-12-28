@@ -3,8 +3,15 @@ import Pagination from 'react-bootstrap/Pagination';
 
 import { PurchaseRouteContext } from 'context/PurchaseRouteState';
 
-const Purchase: React.FunctionComponent<any> = () => {
-  const [state, setState] = useState<any>({
+interface IState {
+  firstDisabled?: boolean;
+  prevDisabled?: boolean;
+  nextDisabled?: boolean;
+  lastDisabled?: boolean;
+}
+
+const Purchase: React.FunctionComponent = () => {
+  const [state, setState] = useState<IState>({
     firstDisabled: true,
     prevDisabled: true,
     nextDisabled: false,

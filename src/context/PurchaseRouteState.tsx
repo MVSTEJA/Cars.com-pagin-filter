@@ -8,21 +8,21 @@ import PurchaseReducer, {
 } from "./PurchaseReducer";
 
 export type ICarDetails = {
-  stockNumber: number;
-  pictureUrl: string;
-  manufacturerName: string;
-  modelName: string;
-  mileage: {
-    number: number;
-    unit: string;
+  stockNumber?: number;
+  pictureUrl?: string;
+  manufacturerName?: string;
+  modelName?: string;
+  mileage?: {
+    number?: number;
+    unit?: string;
   };
-  fuelType: string;
-  color: string;
+  fuelType?: string;
+  color?: string;
 };
 
 export interface IPurchaseRouteContext {
   isCarsLoading?: boolean;
-  cars?: Array<ICarDetails>;
+  cars?: Array<ICarDetails>| [];
   selectedManufacturer?: string;
   selectedColor?: string;
   page?: string;
@@ -54,7 +54,7 @@ export const PurchaseRouteContext: React.Context<IPurchaseRouteContext> = create
   initialState
 );
 
-export const PurchaseRouteProvider: React.FunctionComponent<any> = ({
+export const PurchaseRouteProvider: React.FunctionComponent = ({
   children,
 }) => {
   const [state, dispatch] = useReducer<

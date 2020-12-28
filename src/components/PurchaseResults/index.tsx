@@ -13,30 +13,28 @@ import {
 import "./index.scss";
 import CarDetails from "components/modals/CarDetails";
 
-const PurchaseResults: React.FunctionComponent<any> = () => {
+const PurchaseResults: React.FunctionComponent = () => {
   const {
     isCarsLoading,
-    cars,
+    cars = [],
     totalCarsCount,
   } = useContext<IPurchaseRouteContext>(PurchaseRouteContext);
-  const [modalShow, setModalShow] = useState<any>(false);
-  const [carDetailsJSON, setCarDetailsJSON] = useState<Record<string, unknown>>(
-    {}
-  );
+  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [carDetailsJSON, setCarDetailsJSON] = useState<ICarDetails>({});
 
-  const handleViewDetails = (carDetails: ICarDetails) => {
+  const handleViewDetails = (carDetails: ICarDetails): void => {
     setModalShow(true);
     setCarDetailsJSON(carDetails);
   };
   return (
     <>
       <h2 className="pb-1 font-weight-bold">Available cars</h2>
-      {!isCarsLoading && cars!.length > 0 && (
+      {!isCarsLoading && cars.length > 0 && (
         <h4 className="pb-4"> Showing 10 of {totalCarsCount} results</h4>
       )}
       <RowItem
         isCarsLoading={isCarsLoading}
-        cars={isCarsLoading ? [] : cars}
+        cars={cars}
         handleViewDetails={handleViewDetails}
       />
       <CarDetails
@@ -48,16 +46,18 @@ const PurchaseResults: React.FunctionComponent<any> = () => {
   );
 };
 
-export const RowItem: React.FunctionComponent<any> = ({
-  cars,
+interface IRowItemProps {
+  cars: Array<ICarDetails> | [];
+  handleViewDetails?: (car: ICarDetails) => void;
+  removeFromFavorites?: (car: ICarDetails) => void;
+  isCarsLoading?: boolean;
+}
+
+export const RowItem: React.FunctionComponent<IRowItemProps> = ({
+  cars = [],
   handleViewDetails,
   removeFromFavorites,
   isCarsLoading,
-}: {
-  cars: [];
-  handleViewDetails: (car: ICarDetails) => void;
-  removeFromFavorites: (car: ICarDetails) => void;
-  isCarsLoading: boolean;
 }) => (
   <section>
     {isCarsLoading ? (
@@ -85,8 +85,8 @@ export const RowItem: React.FunctionComponent<any> = ({
                 {car.manufacturerName} {car.modelName}
               </Card.Title>
               <Card.Text>
-                Stock #: {car.stockNumber} - {car.mileage.number}{" "}
-                {car.mileage.unit} - {car.fuelType} - {car.color}
+                Stock #: {car.stockNumber} - {car?.mileage?.number}{" "}
+                {car?.mileage?.unit} - {car.fuelType} - {car.color}
               </Card.Text>
               {removeFromFavorites ? (
                 <Button
@@ -101,7 +101,7 @@ export const RowItem: React.FunctionComponent<any> = ({
                   <Button
                     variant="link"
                     className="p-0"
-                    onClick={() => handleViewDetails(car)}
+                    onClick={() => handleViewDetails && handleViewDetails(car)!}
                   >
                     View details
                   </Button>
