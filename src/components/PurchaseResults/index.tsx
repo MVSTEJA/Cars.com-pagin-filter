@@ -101,7 +101,7 @@ export const RowItem: React.FunctionComponent<IRowItemProps> = ({
                   <Button
                     variant="link"
                     className="p-0"
-                    onClick={() => handleViewDetails && handleViewDetails(car)!}
+                    onClick={() => handleViewDetails && handleViewDetails(car)}
                   >
                     View details
                   </Button>
